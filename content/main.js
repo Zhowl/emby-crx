@@ -7,16 +7,19 @@ class Home {
 		this.itemQuery = { ImageTypes: "Backdrop", EnableImageTypes: "Logo,Backdrop", IncludeItemTypes: "Movie,Series", SortBy: "ProductionYear, PremiereDate, SortName", Recursive: true, ImageTypeLimit: 1, Limit: 10, Fields: "ProductionYear", SortOrder: "Descending", EnableUserData: false, EnableTotalRecordCount: false };
 		this.coverOptions = { type: "Backdrop", maxWidth: 3000 };
 		this.logoOptions = { type: "Logo", maxWidth: 3000 };
+		this.initStart = false;
 
 		setInterval(() => {
 			if (window.location.href.indexOf("!/home") != -1) {
 				if ($(".view:not(.hide) .misty-banner").length == 0 && $(".misty-loading").length == 0) {
+					this.initStart = false;
 					this.initLoading();
 				}
 				if ($(".hide .misty-banner").length != 0) {
 					$(".hide .misty-banner").remove();
 				}
-				if ($(".section0 .card").length != 0 && $(".view:not(.hide) .misty-banner").length == 0) {
+				if (!this.initStart && $(".section0 .card").length != 0 && $(".view:not(.hide) .misty-banner").length == 0) {
+					this.initStart = true;
 					this.init();
 				}
 			}
